@@ -1,0 +1,94 @@
+﻿@using System.Timers
+@using System.ComponentModel
+@page "/mqttview"
+@inject IJSRuntime jsRuntime
+
+<h3>MqttView</h3>
+
+<ul style="list-style: none">
+    @foreach (var subscription in _subscriptions)
+    {
+        <li>
+            <input @bind="subscription.Topic" />
+            <p>@subscription.Value</p>
+        </li>
+    }
+</ul>
+
+<input placeholder="Add subscription" @bind="_newSubscription" />
+<button @onclick="AddSubscriptionAsync">Add subscription</button>
+
+
+
+@code {
+    string _newSubscription;
+    BindingList<Subscription> _subscriptions = new BindingList<Subscription>();
+
+    private void _subscriptions_ListChanged(object sender, ListChangedEventArgs e)
+    {
+        this.StateHasChanged();
+    }
+
+    protected async override Task OnInitializedAsync()
+    {
+        _subscriptions.ListChanged += _subscriptions_ListChanged;
+
+        await Task.CompletedTask;
+    }
+
+    private async Task AddSubscriptionAsync()
+    {
+        var sub = new Subscription(_newSubscription, jsRuntime) { Value = Guid.NewGuid().ToString() };
+        await sub.InitializeAsync();
+
+        _subscriptions.Add(sub);
+
+        _newSubscription = string.Empty;
+    }
+
+    private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        base.StateHasChanged();
+    }
+
+    class Subscription : System.ComponentModel.INotifyPropertyChanged
+    {
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        MqttClient.Blazor.Data.MqttWrapper _wrapper;
+
+        public Subscription(string topic, IJSRuntime runtime)
+        {
+            Topic = topic;
+            _wrapper = new MqttClient.Blazor.Data.MqttWrapper(runtime);
+            _wrapper.MessageReceived += (s, m) => Value = m;
+        }
+
+        public async Task InitializeAsync()
+        {
+            await _wrapper.InitializeAsync(Topic);
+        }
+
+        public string Topic { get; set; }
+
+        private string _value;
+        public string Value
+        {
+            get => _value;
+            set
+            {
+                if (value == _value)
+                    return;
+
+                _value = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(name));
+        }
+    }
+}
