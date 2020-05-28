@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttClient.Blazor", "MqttClient.Blazor\MqttClient.Blazor.csproj", "{B15C0DD8-84BA-4CDF-9E3C-62620798E6ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MqttJsonTest", "MqttJsonTest\MqttJsonTest.csproj", "{F9AFBCFE-B37B-4CA5-9594-E0F03A72CFFB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{B15C0DD8-84BA-4CDF-9E3C-62620798E6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B15C0DD8-84BA-4CDF-9E3C-62620798E6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B15C0DD8-84BA-4CDF-9E3C-62620798E6ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9AFBCFE-B37B-4CA5-9594-E0F03A72CFFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9AFBCFE-B37B-4CA5-9594-E0F03A72CFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9AFBCFE-B37B-4CA5-9594-E0F03A72CFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9AFBCFE-B37B-4CA5-9594-E0F03A72CFFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
