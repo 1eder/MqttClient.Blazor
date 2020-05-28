@@ -6,14 +6,12 @@
 
 <h3>MqttView</h3>
 
-<ul style="list-style: none">
+<ul class="list-group">
     @foreach (var subscription in _subscriptions)
     {
-        <li>
-            <div style="padding: 10px">
-                <p>@subscription.Topic</p>
-                <p>@subscription.Value</p>
-            </div>
+        <li class="list-group-item">
+            <p>@subscription.Topic</p>
+            <p>@subscription.Value</p>
         </li>
     }
 </ul>
